@@ -17,16 +17,19 @@ const Noodle = ({ value, defaultShape, color }) => {
     setShape(rotateRight(shape));
   };
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: "noodle",
-    item: {
-      id: value,
-      noodleShape: shape,
-    },
-    collect: (monitor) => ({
-      isDragging: !!monitor.isDragging(),
+  const [{ isDragging }, drag] = useDrag(
+    () => ({
+      type: "noodle",
+      item: {
+        id: value,
+        noodleShape: shape,
+      },
+      collect: (monitor) => ({
+        isDragging: !!monitor.isDragging(),
+      }),
     }),
-  }));
+    [shape]
+  );
 
   return (
     <>

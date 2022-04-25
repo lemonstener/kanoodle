@@ -1,0 +1,7 @@
+.Puzzle {
+    width: 250px;
+    margin: auto;
+    background-color: black;
+    border-radius: 10px;
+    padding: 4px;
+}

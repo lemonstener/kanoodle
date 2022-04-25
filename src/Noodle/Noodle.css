@@ -1,0 +1,39 @@
+.Noodle {
+    margin: 10px;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;    
+    border-radius: 10px;
+    transition: background-color .2s;
+}
+
+.Noodle:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+
+.Noodle-row-holder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+.Noodle-row-holder:hover {
+    transform: scale(1.15);
+}
+
+.Noodle-arrow {
+    margin: 10px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: all .1s;
+}
+
+.Noodle-arrow:hover {
+    transform: scale(1.5);
+}

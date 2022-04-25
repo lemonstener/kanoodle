@@ -10,7 +10,7 @@ const Puzzle = () => {
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "noodle",
-    drop: (item) => addNoodleToBoard(item.id, item.noodleShape, item.num),
+    drop: (item) => addNoodleToBoard(item.id, item.noodleShape),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),

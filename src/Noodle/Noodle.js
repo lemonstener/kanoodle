@@ -21,8 +21,9 @@ const Noodle = ({ value, defaultShape, color }) => {
     () => ({
       type: "noodle",
       item: {
-        id: value,
-        noodleShape: shape,
+        value: value,
+        shape: shape,
+        color: color,
       },
       collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),

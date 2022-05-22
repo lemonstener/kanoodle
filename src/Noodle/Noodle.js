@@ -34,10 +34,7 @@ const Noodle = ({ value, defaultShape, color }) => {
 
   return (
     <>
-      <div
-        className="Noodle"
-        style={{ visibility: isDragging ? "hidden" : "visible" }}
-      >
+      <div className="Noodle" style={{ display: isDragging ? "none" : "flex" }}>
         <div className="Noodle-arrow" onClick={rotateNoodleLeft}>
           ↪️
         </div>

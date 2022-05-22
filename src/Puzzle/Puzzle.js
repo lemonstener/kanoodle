@@ -1,54 +1,66 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./Puzzle.css";
 import { v4 as uuidv4 } from "uuid";
 import { useDrop } from "react-dnd";
-import PuzzleRow from "../PuzzleRow/PuzzleRow";
 import { pro } from "../kaboodles/kaboodles";
-import PuzzleBall from "../PuzzleBall/PuzzleBall";
 
 const Puzzle = () => {
   const [board, setBoard] = useState(pro);
 
+  const coordinates = useRef({ row: -1, index: 0 });
+
   let row = -1;
-  let index = 0;
+  let index = -1;
+
+  const updateBoard = (newBoard) => {
+    setBoard(newBoard);
+  };
 
   const [{ isOver }, drop] = useDrop(() => ({
     accept: "noodle",
-    drop: (item) => addNoodleToBoard(item.value, item.shape, item.color),
+    drop: (item, e) => addNoodleToBoard(item.value, item.shape, item.color),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
   }));
 
-  const addNoodleToBoard = (id, shape, color) => {
-    console.log(id);
-    console.log(shape);
+  const addNoodleToBoard = (value, shape, color) => {
     console.log(color);
+    // for (let i of shape) {
+    //   currRow++;
+    //   currBall = index - 1;
+    //   for (let j of i) {
+    //     currBall++;
+    //   }
+    // }
   };
 
   const getCoordinates = (position) => {
-    row = position.getAttribute("row");
-    index = position.getAttribute("ball");
+    coordinates.current.row = parseInt(position.getAttribute("row"));
+    coordinates.current.index = parseInt(position.getAttribute("index"));
   };
 
   return (
     <div className="Puzzle" ref={drop}>
       {board.map((entry) => {
+        // coordinates.current.row++;
+        // coordinates.current.index = -1;
         row++;
-        index = 0;
+        index = -1;
         return (
           <div className="Puzzle-row" key={uuidv4()}>
             {entry.map((i) => {
+              coordinates.current.index++;
               index++;
               if (i !== 0) {
                 return (
                   <div
                     className="Puzzle-filled"
-                    onDragOver={(e) => getCoordinates(e.target)}
                     key={uuidv4()}
                     row={row}
-                    ball={index}
+                    index={index}
                     style={{ backgroundColor: `${i.color}` }}
+                    onDragOver={(e) => getCoordinates(e.target)}
                   >
                     {i.value}
                   </div>
@@ -58,6 +70,8 @@ const Puzzle = () => {
                   <div
                     className="Puzzle-empty"
                     key={uuidv4()}
+                    row={row}
+                    index={index}
                     onDragOver={(e) => getCoordinates(e.target)}
                   ></div>
                 );

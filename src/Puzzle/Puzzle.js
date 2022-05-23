@@ -25,14 +25,49 @@ const Puzzle = () => {
   }));
 
   const addNoodleToBoard = (value, shape, color) => {
-    console.log(color);
+    row = coordinates.current.row - 1;
+    index = coordinates.current.index - 1;
+
+    for (let i of shape) {
+      row++;
+      if (row > 4) {
+        console.log("Row exceeded");
+        return;
+      }
+      index = coordinates.current.index - 1;
+      for (let j of i) {
+        index++;
+        if ((board[row][index] !== 0 && j !== 0) || index > 10) {
+          console.log("Incompatible");
+          return;
+        }
+      }
+    }
+
+    console.log("Can update");
+
+    const newNoodle = { value, shape, color };
+
+    const newBoard = board;
+
+    row = coordinates.current.row - 1;
+    index = coordinates.current.index - 1;
+
+    // const newBoard = pro;
+    // row = coordinates.current.row;
+    // index = coordinates.current.index - 1;
     // for (let i of shape) {
-    //   currRow++;
-    //   currBall = index - 1;
+    //   row++;
+    //   console.log(`${row} - row`);
+    //   index = coordinates.current.index - 1;
     //   for (let j of i) {
-    //     currBall++;
+    //     index++;
+    //     console.log(`${index} - index`);
+    //     newBoard[row][index] = { value, shape, color };
     //   }
     // }
+
+    // console.log(newBoard);
   };
 
   const getCoordinates = (position) => {

@@ -29,3 +29,7 @@
     height: 20px;
     background-color: rgba(232, 232, 232, 0.5);
 }
+
+.Puzzle-highlight {
+    background-color: goldenrod;
+}

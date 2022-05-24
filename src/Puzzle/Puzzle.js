@@ -5,7 +5,13 @@ import { useDrop } from "react-dnd";
 import { pro } from "../kaboodles/kaboodles";
 
 const Puzzle = () => {
-  const [board, setBoard] = useState(pro);
+  const [board, setBoard] = useState([
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  ]);
 
   const coordinates = useRef({ row: -1, index: 0 });
 
@@ -28,6 +34,8 @@ const Puzzle = () => {
     row = coordinates.current.row - 1;
     index = coordinates.current.index - 1;
 
+    const toFill = [];
+
     for (let i of shape) {
       row++;
       if (row > 4) {
@@ -40,34 +48,24 @@ const Puzzle = () => {
         if ((board[row][index] !== 0 && j !== 0) || index > 10) {
           console.log("Incompatible");
           return;
+        } else {
+          if (j !== 0) {
+            toFill.push([row, index]);
+          }
         }
       }
     }
 
     console.log("Can update");
-
-    const newNoodle = { value, shape, color };
+    console.log(toFill);
 
     const newBoard = board;
 
-    row = coordinates.current.row - 1;
-    index = coordinates.current.index - 1;
+    for (let i of toFill) {
+      newBoard[i[0]][i[1]] = { value, shape, color };
+    }
 
-    // const newBoard = pro;
-    // row = coordinates.current.row;
-    // index = coordinates.current.index - 1;
-    // for (let i of shape) {
-    //   row++;
-    //   console.log(`${row} - row`);
-    //   index = coordinates.current.index - 1;
-    //   for (let j of i) {
-    //     index++;
-    //     console.log(`${index} - index`);
-    //     newBoard[row][index] = { value, shape, color };
-    //   }
-    // }
-
-    // console.log(newBoard);
+    setBoard(newBoard);
   };
 
   const getCoordinates = (position) => {
